@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Medica.Models.Usluga>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Ime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cijena)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Trajanje)
+        </th>
+        <th>
+            @Html.Label("Ime doktora")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Opis)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.Ime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cijena)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Trajanje)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Zaposleni.Ime) @Html.DisplayFor(modelItem => item.Zaposleni.Prezime) 
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Opis)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.UslugaID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.UslugaID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.UslugaID }) |
+            @Html.ActionLink("Zakazi", "Zakazi", new { id = item.UslugaID })
+        </td>
+    </tr>
+}
+
+</table>

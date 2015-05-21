@@ -1,0 +1,42 @@
+﻿@model Medica.Models.RadnoVrijeme
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RadnoVrijeme</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Dan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SatiOd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SatiOd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SatiDo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SatiDo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RadnoVrijemeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
