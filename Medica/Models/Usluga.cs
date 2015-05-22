@@ -28,7 +28,6 @@ namespace Medica.Models
         public string Opis { get; set; }
 
         [Required]
-        [Range(0, 1)]
         public int Status { get; set; }
 
         public int ZaposleniID { get; set; }

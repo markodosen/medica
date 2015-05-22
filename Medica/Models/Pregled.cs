@@ -27,7 +27,6 @@ namespace Medica.Models
 
         [Required]
         [DefaultValue(0)]
-        [Range(0, 3)]
         public int Status { get; set; }
 
         public virtual Korisnik Korisnik { get; set; }

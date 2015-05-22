@@ -127,5 +127,103 @@ namespace Medica.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult Otkazi(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Pregled korisnik = db.Pregleds.Find(id);
+            if (korisnik == null)
+            {
+                return HttpNotFound();
+            }
+            if (korisnik.Status<3)
+            {
+                korisnik.Status = 4;
+            }
+            db.Entry(korisnik).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Odobri(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Pregled korisnik = db.Pregleds.Find(id);
+            if (korisnik == null)
+            {
+                return HttpNotFound();
+            }
+            if (korisnik.Status < 3)
+            {
+                korisnik.Status = 1;
+            }
+            db.Entry(korisnik).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Neodobri(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Pregled korisnik = db.Pregleds.Find(id);
+            if (korisnik == null)
+            {
+                return HttpNotFound();
+            }
+            if (korisnik.Status < 3)
+            {
+                korisnik.Status = 2;
+            }
+            db.Entry(korisnik).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Obavljen(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Pregled korisnik = db.Pregleds.Find(id);
+            if (korisnik == null)
+            {
+                return HttpNotFound();
+            }
+            if (korisnik.Status < 4)
+            {
+                korisnik.Status = 3;
+            }
+            db.Entry(korisnik).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Resetuj(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Pregled korisnik = db.Pregleds.Find(id);
+            if (korisnik == null)
+            {
+                return HttpNotFound();
+            }
+            korisnik.Status = 0;
+            db.Entry(korisnik).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        
     }
 }

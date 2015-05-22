@@ -1,14 +1,28 @@
 ﻿@model IEnumerable<Medica.Models.Zaposleni>
-
+@using Medica.Models;
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Upravljanje zaposlenima</h2>
+@{
+    String uloga = "";
+    if (Session["tip"].ToString().Equals("zaposleni"))
+    {
+        var user = Session["user"] as Zaposleni;
+        uloga = user.Uloga.Ime;
+    }
+}
 
 <p>
-    @Html.ActionLink("Dodaj novog zaposlenog", "Create")
-    
+    @if (uloga.Equals("administrator"))
+    {
+        <h2>Upravljanje zaposlenima</h2>
+        @Html.ActionLink("Dodaj novog zaposlenog", "Create")
+
+    }
+    else
+    {
+        <h2>Nasi zaposleni</h2>
+    }
 </p>
 <table class="table">
     <tr>
@@ -23,12 +37,14 @@
         <th>
             @Html.DisplayNameFor(model => model.Mail)
         </th>
+@if (uloga.Equals("administrator")) {
         <th>
             @Html.DisplayNameFor(model => model.Sifra)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Status)
         </th>
+}
         <th>
             @Html.Label("Uloga")
         </th>
@@ -40,7 +56,8 @@
 
 @foreach (var item in Model) {
     <tr>
-        
+        @if (uloga.Equals("administrator") || item.Uloga.Ime.Equals("Doktor"))
+        {
         <td>
             @Html.DisplayFor(modelItem => item.Ime)
         </td>
@@ -50,6 +67,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.Mail)
         </td>
+           if (uloga.Equals("administrator")) { 
         <td>
             @Html.DisplayFor(modelItem => item.Sifra)
         </td>
@@ -65,17 +83,21 @@
 
             }
         </td>
+           }
         <td>
             @Html.DisplayFor(modelItem => item.Uloga.Ime)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Opis)
         </td>
+             if (uloga.Equals("administrator")) { 
         <td>
             @Html.ActionLink("Izmijeni", "Edit", new { id=item.ZaposleniID }) |
             @Html.ActionLink("Detalji", "Details", new { id=item.ZaposleniID }) |
             @Html.ActionLink("Izmjeni status", "Status", new { id = item.ZaposleniID })
         </td>
+        }
+        }
     </tr>
 }
 

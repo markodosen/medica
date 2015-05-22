@@ -7,15 +7,18 @@
 @{
     String ime = "a";
     String uloga = "a";
+    String prezime = "";
         if (Session["tip"].Equals("korisnik"))
         {
             var user = Session["user"] as Korisnik;
             ime = user.Ime;
+            prezime = user.Prezime;
         }
         else
         {
             var user = Session["user"] as Zaposleni;
             ime = user.Ime;
+            prezime = user.Prezime;
             uloga = user.Uloga.Ime;
         }
 
@@ -23,7 +26,6 @@
 @if (uloga.Equals("administrator"))
 {
     <h2>Upravljanje pregledima</h2>
-    @Html.ActionLink("Dodaj novu uslugu", "Create")
 
 }
 else
@@ -56,6 +58,11 @@ else
 
 @foreach (var item in Model) {
     <tr>
+         @if ((item.Korisnik.Ime.Equals(ime) && item.Korisnik.Prezime.Equals(prezime)) || 
+             (item.Usluga.Zaposleni.Ime.Equals(ime) && item.Usluga.Zaposleni.Prezime.Equals(prezime)) ||
+             uloga.Equals("administrator") || uloga.Equals("Medicinska sestra"))
+         {
+             
          
         <td>
             @Html.DisplayFor(modelItem => item.Datum) 
@@ -85,6 +92,9 @@ else
             if (item.Status == 3)
             {
                 @("Obavljen pregled")
+            } if (item.Status > 3)
+            {
+                @("Otkazan od strane pacijenta")
             }
 }
         </td>
@@ -92,7 +102,35 @@ else
         <td>
             @Html.ActionLink("Detalji", "Details", new { id=item.PregledID }) 
         </td>
-    
+             if ((item.Korisnik.Ime.Equals(ime) && item.Korisnik.Prezime.Equals(prezime)) && item.Status<3) { 
+        <td>
+            @Html.ActionLink("Otkazi", "Otkazi", new { id = item.PregledID })
+        </td>
+             }
+             if (uloga.Equals("administrator"))
+             {
+                <td>
+                    @Html.ActionLink("Resetuj pregled", "Resetuj", new { id = item.PregledID }, new { @class = "btn btn-danger" })
+                </td>
+             }
+             if (uloga.Equals("Medicinska sestra") && item.Status < 4)
+             {
+                 if (item.Status < 3)
+                 {
+            <td>
+                @Html.ActionLink("Odobri pregled", "Odobri", new { id = item.PregledID }, new { @class = "btn btn-sm btn-success" })
+            </td>
+    <td>
+        @Html.ActionLink("Ne odobri pregled", "Neodobri", new { id = item.PregledID }, new { @class = "btn btn-sm btn-danger" })
+    </td>
+                 
+    <td>
+        @Html.ActionLink("Obavljen", "Obavljen", new { id = item.PregledID }, new { @class = "btn btn-info" })
+    </td>
+                 }
+                 
+             }
+         }
     </tr>
 }
 

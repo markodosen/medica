@@ -5,15 +5,21 @@
 }
 
 @{
-    String uloga = "";
-    if (Session["tip"].ToString().Equals("zaposleni"))
-  {
-      var user = Session["user"] as Zaposleni;
-      uloga = user.Uloga.Ime;
-  }
-}
+    String ime = "a";
+    String uloga = "a";
+        if (Session["tip"].Equals("korisnik"))
+        {
+            var user = Session["user"] as Korisnik;
+            ime = user.Ime;
+        }
+        else
+        {
+            var user = Session["user"] as Zaposleni;
+            ime = user.Ime;
+            uloga = user.Uloga.Ime;
+        }
 
-
+    }
 
 <p>
 @if (uloga.Equals("administrator"))
