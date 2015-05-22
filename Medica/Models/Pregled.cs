@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using Medica.Controllers;
 
 namespace Medica.Models
 {
@@ -14,6 +15,7 @@ namespace Medica.Models
         public int PregledID { get; set; }
 
         [Required(ErrorMessage = "Ovo polje je obavezno")]
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public DateTime Datum { get; set; }
 
         [Required(ErrorMessage = "Ovo polje je obavezno")]
@@ -31,4 +33,5 @@ namespace Medica.Models
         public virtual Korisnik Korisnik { get; set; }
         public virtual Usluga Usluga { get; set; }
     }
+
 }

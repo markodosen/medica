@@ -1,13 +1,12 @@
 ﻿@model Medica.Models.Pregled
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalji";
 }
 
-<h2>Details</h2>
+<h2>Detalji</h2>
 
 <div>
-    <h4>Pregled</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -25,18 +24,34 @@
         <dd>
             @Html.DisplayFor(model => model.VrijemePocetka)
         </dd>
+        <dt>
+            @Html.Label("Ime usluge")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Usluga.Ime)
+        </dd>
+        <dt>
+            @Html.Label("Opis usluge")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Usluga.Opis)
+        </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.VrijemeZavrsetka)
+            @Html.Label("Ime pacijenta")
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.VrijemeZavrsetka)
+            @Html.DisplayFor(model => model.Korisnik.Ime) @Html.DisplayFor(model => model.Korisnik.Prezime) 
+        </dd>
+        <dt>
+            @Html.Label("Ime doktora")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Usluga.Zaposleni.Ime) @Html.DisplayFor(model => model.Usluga.Zaposleni.Prezime) (@Html.DisplayFor(model => model.Usluga.Zaposleni.Uloga.Ime))
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.PregledID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Vrati se na listu", "Index")
 </p>

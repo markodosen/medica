@@ -1,4 +1,28 @@
-﻿@{
+﻿@using Medica.Models;
+@{
     ViewBag.Title = "Home Page";
 }
 
+@{
+    String ime = "";
+    if (Session["tip"].ToString().Equals("korisnik"))
+    {
+         var user = Session["user"] as Korisnik;
+         ime = user.Ime;
+        
+    }
+    if (Session["tip"].ToString().Equals("zaposleni"))
+    {
+        var user = Session["user"] as Zaposleni;
+        ime = user.Ime;
+    }
+    if(Session["tip"] == null)
+    {
+        ime = "Ne znam!";
+    }
+   
+
+}
+<h3>Welcome @ime</h3>
+
+@Html.ActionLink("Usluge", "Index", "Uslugas")

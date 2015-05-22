@@ -17,6 +17,10 @@ namespace Medica.Controllers
         // GET: Korisniks
         public ActionResult Index()
         {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             return View(db.Korisniks.ToList());
         }
 
@@ -74,7 +78,7 @@ namespace Medica.Controllers
             return View(korisnik);
         }
 
-        
+
 
 
         [HttpPost]
@@ -84,6 +88,7 @@ namespace Medica.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(korisnik).State = EntityState.Modified;
+                db.Entry(korisnik).Property(u => u.Status).IsModified = false;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

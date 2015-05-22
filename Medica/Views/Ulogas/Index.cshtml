@@ -1,13 +1,24 @@
 ﻿@model IEnumerable<Medica.Models.Uloga>
-
+@using Medica.Models;
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Upravljanje ulogama";
 }
 
-<h2>Index</h2>
+@{
+    String uloga = "";
+    if (Session["tip"].Equals("zaposleni"))
+  {
+      var user = Session["user"] as Zaposleni;
+      uloga = user.Uloga.Ime;
+  }
+  
+ }
+<h2>Upravljanje ulogama</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+@if (uloga.Equals("administrator")) {
+    @Html.ActionLink("Kreiraj novu ulogu", "Create")
+}
 </p>
 <table class="table">
     <tr>
@@ -28,11 +39,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.Opis)
         </td>
+        
+           
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.UlogaID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UlogaID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.UlogaID })
+            @Html.ActionLink("Izmjeni", "Edit", new { id=item.UlogaID })
         </td>
+        
     </tr>
 }
 

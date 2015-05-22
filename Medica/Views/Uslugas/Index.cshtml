@@ -1,19 +1,37 @@
 ﻿@model IEnumerable<Medica.Models.Usluga>
-
+@using Medica.Models;
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Upravljanje uslugama";
 }
 
-<h2>Index</h2>
+@{
+    String uloga = "";
+    if (Session["tip"].ToString().Equals("zaposleni"))
+  {
+      var user = Session["user"] as Zaposleni;
+      uloga = user.Uloga.Ime;
+  }
+}
+
+
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+@if (uloga.Equals("administrator"))
+{
+    <h2>Upravljanje uslugama</h2>
+    @Html.ActionLink("Dodaj novu uslugu", "Create")
+   
+        }
+else
+{
+    <h2>Nase usluge</h2>
+}
 </p>
 <table class="table">
     <tr>
         
         <th>
-            @Html.DisplayNameFor(model => model.Ime)
+            @Html.DisplayNameFor(model => model.Ime)  @uloga
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Cijena)
@@ -27,17 +45,26 @@
         <th>
             @Html.DisplayNameFor(model => model.Opis)
         </th>
+@if (uloga.Equals("administrator"))
+        {
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+}
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model) { 
+    
     <tr>
-        
+        @if (item.Status == 1 || (uloga.Equals("administrator"))) {
         <td>
+            
             @Html.DisplayFor(modelItem => item.Ime)
+            
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Cijena)
+            @Html.DisplayFor(modelItem => item.Cijena) e
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Trajanje)
@@ -48,12 +75,36 @@
         <td>
             @Html.DisplayFor(modelItem => item.Opis)
         </td>
+        
+    if (uloga.Equals("administrator"))
+        {
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.UslugaID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UslugaID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.UslugaID }) |
-            @Html.ActionLink("Zakazi", "Zakazi", new { id = item.UslugaID })
+            @{if (item.Status == 1)
+            {
+                @("Aktivan")
+            }
+            else
+            {
+                @("Neaktivan")
+            }
+
+}
         </td>
+                 
+}
+
+        <td>
+        @if (uloga.Equals("administrator"))
+        {
+            @Html.ActionLink("Izmjeni | ", "Edit", new { id=item.UslugaID }) 
+            @Html.ActionLink("Izmjeni status", "Status", new { id = item.UslugaID })
+        }
+        else { 
+            
+            @Html.ActionLink("Zakazi", "Zakazi", new { id = item.UslugaID }, new { @class = "btn btn-sm btn-success" })
+        }
+        </td>
+        }
     </tr>
 }
 

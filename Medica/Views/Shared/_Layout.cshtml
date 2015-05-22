@@ -1,4 +1,35 @@
-﻿<!DOCTYPE html>
+﻿@using Medica.Models;
+@{
+    String ime = "";
+    String uloga = "";
+    
+    if (Session["tip"] == null)
+    {
+        
+    }
+    else { 
+    
+    
+    if (Session["tip"].Equals("korisnik"))
+    {
+        var user = Session["user"] as Korisnik;
+        ime = user.Ime;
+    }
+    else
+    {
+        var user = Session["user"] as Zaposleni;
+        ime = user.Ime;
+        uloga = user.Uloga.Ime;
+    }
+
+    }
+}
+
+
+
+
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -17,28 +48,36 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Zakazivanje pregleda online", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Medica", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
                     <li>@Html.ActionLink("O nama", "About", "Home")</li>
                     <li>@Html.ActionLink("Pomoc", "", "")</li>
-                   
+                   @if (uloga.Equals("administrator")) { 
                     <li class="dropdown">
                         <a class="nav navbar-nav" data-toggle="dropdown" href="#">Administratorski alati<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Upravljanje zaposlenima", "Index", "Zaposlenis")</li>
+                            <li>@Html.ActionLink("Upravljanje ulogama", "Index", "Ulogas")</li>
                             <li>@Html.ActionLink("Upravljanje korisnicima", "Index", "Korisniks")</li>
                             <li>@Html.ActionLink("Upravljanje uslugama", "Index", "Uslugas")</li>
                             <li>@Html.ActionLink("Upravljanje pregledima", "Index", "Pregleds")</li>
                         </ul>
                     </li>
+                   }
                 </ul>
                 <div style="float:right">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Moji pregledi", "", "", new { @class = "navbar-brand" })<span class=" badge">7</span></li>
-                        <li>@Html.ActionLink("Izloguj se", "", "")</li>
+                    <ul class="nav navbar-nav">      
+                        <li class="dropdown">
+                            <a class="nav navbar-nav" data-toggle="dropdown" href="#">@ime<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Moji pregledi", "Index", "Pregleds")</li>
+                                <li>@Html.ActionLink("Izloguj se", "Logout", "Login")</li>
+                            </ul>
+                        </li>
+                        
                     </ul>
                 </div>
             </div>
@@ -59,3 +98,4 @@
 </body>
 </html>
 
+    

@@ -1,14 +1,13 @@
 ﻿@model Medica.Models.Uloga
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Brisanje uloge";
 }
 
-<h2>Delete</h2>
+<h2>Brisanje uloge</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Da li ste sigurni da zelite da obrisete ovu ulogu?</h3>
 <div>
-    <h4>Uloga</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -33,8 +32,10 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Obrisi" class="btn btn-default" />
+           
         </div>
+        <hr />
+        <div>@Html.ActionLink("Vrai se na listu", "Index")</div>
     }
 </div>

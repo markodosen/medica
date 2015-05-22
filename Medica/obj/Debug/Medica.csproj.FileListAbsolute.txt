@@ -60,3 +60,4 @@ C:\Users\marko\documents\visual studio 2013\Projects\Medica\Medica\obj\Debug\Med
 C:\Users\marko\Documents\Visual Studio 2013\Projects\Medica\Medica\obj\Debug\Medica.Migrations.JMBGchange.resources
 C:\Users\marko\Documents\Visual Studio 2013\Projects\Medica\Medica\obj\Debug\Medica.Migrations.Sifra.resources
 C:\Users\marko\Documents\Visual Studio 2013\Projects\Medica\Medica\obj\Debug\Medica.Migrations.Telefon.resources
+C:\Users\marko\Documents\Visual Studio 2013\Projects\Medica\Medica\obj\Debug\Medica.Migrations.Uslugastatus.resources

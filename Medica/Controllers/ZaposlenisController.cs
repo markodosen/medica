@@ -17,6 +17,10 @@ namespace Medica.Controllers
         // GET: Zaposlenis
         public ActionResult Index()
         {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             var zaposlenis = db.Zaposlenis.Include(z => z.Uloga);
             return View(zaposlenis.ToList());
         }
@@ -48,10 +52,11 @@ namespace Medica.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ZaposleniID,Ime,Prezime,Mail,Sifra,Status,Opis,UlogaID")] Zaposleni zaposleni)
+        public ActionResult Create([Bind(Include = "ZaposleniID,Ime,Prezime,Mail,Sifra,Opis,UlogaID")] Zaposleni zaposleni)
         {
             if (ModelState.IsValid)
             {
+                zaposleni.Status = 1;
                 db.Zaposlenis.Add(zaposleni);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -128,5 +133,30 @@ namespace Medica.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult Status(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Zaposleni korisnik = db.Zaposlenis.Find(id);
+            if (korisnik == null)
+            {
+                return HttpNotFound();
+            }
+            if (korisnik.Status == 1)
+            {
+                korisnik.Status = 0;
+            }
+            else
+            {
+                korisnik.Status = 1;
+            }
+            db.Entry(korisnik).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
     }
 }

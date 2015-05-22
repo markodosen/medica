@@ -17,6 +17,10 @@ namespace Medica.Controllers
         // GET: RadnoVrijemes
         public ActionResult Index()
         {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             return View(db.RadnoVrijemes.ToList());
         }
 

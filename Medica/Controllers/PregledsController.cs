@@ -17,6 +17,10 @@ namespace Medica.Controllers
         // GET: Pregleds
         public ActionResult Index()
         {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             return View(db.Pregleds.ToList());
         }
 
@@ -57,31 +61,8 @@ namespace Medica.Controllers
 
             return View(pregled);
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Zakazi(int? id)
-        {
-            return View("~View/Home/Index.cshtml");
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Usluga usluga = db.Uslugas.Find(id);
-            if (usluga == null)
-            {
-                return HttpNotFound();
-            }
-            if (ModelState.IsValid)
-            {
-                //pregled.Usluga = usluga;
-                //db.Pregleds.Add(pregled);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(usluga);
-        }
-
-        // GET: Pregleds/Edit/5
+        
+        
         public ActionResult Edit(int? id)
         {
             if (id == null)

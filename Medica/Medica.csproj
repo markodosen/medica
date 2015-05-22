@@ -161,6 +161,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KorisniksController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PregledsController.cs" />
     <Compile Include="Controllers\RadnoVrijemesController.cs" />
@@ -193,6 +194,10 @@
     <Compile Include="Migrations\201505201745392_Telefon.cs" />
     <Compile Include="Migrations\201505201745392_Telefon.Designer.cs">
       <DependentUpon>201505201745392_Telefon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505221034539_Usluga status.cs" />
+    <Compile Include="Migrations\201505221034539_Usluga status.Designer.cs">
+      <DependentUpon>201505221034539_Usluga status.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -293,6 +298,9 @@
     <Content Include="Views\RadnoVrijemes\Details.cshtml" />
     <Content Include="Views\RadnoVrijemes\Edit.cshtml" />
     <Content Include="Views\RadnoVrijemes\Index.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Uslugas\Zakazi.cshtml" />
+    <Content Include="Views\Uslugas\Potvrdi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -322,6 +330,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505201745392_Telefon.resx">
       <DependentUpon>201505201745392_Telefon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505221034539_Usluga status.resx">
+      <DependentUpon>201505221034539_Usluga status.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

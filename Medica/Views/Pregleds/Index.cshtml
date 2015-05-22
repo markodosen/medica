@@ -1,44 +1,98 @@
 ﻿@model IEnumerable<Medica.Models.Pregled>
-
+@using Medica.Models;
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Pregledi";
 }
 
-<h2>Index</h2>
+@{
+    String ime = "a";
+    String uloga = "a";
+        if (Session["tip"].Equals("korisnik"))
+        {
+            var user = Session["user"] as Korisnik;
+            ime = user.Ime;
+        }
+        else
+        {
+            var user = Session["user"] as Zaposleni;
+            ime = user.Ime;
+            uloga = user.Uloga.Ime;
+        }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+    }
+@if (uloga.Equals("administrator"))
+{
+    <h2>Upravljanje pregledima</h2>
+    @Html.ActionLink("Dodaj novu uslugu", "Create")
+
+}
+else
+{
+    <h2>Pregledi</h2>
+}
+
+
+
+
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Datum)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.VrijemePocetka)
+            @Html.Label("Vrijeme pocetka")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.VrijemeZavrsetka)
+            @Html.Label("Ime usluge")
+        </th>
+        <th>
+            @Html.Label("Ime pacijenta")
+        </th>
+        <th>
+            @Html.Label("Status")
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+         
         <td>
-            @Html.DisplayFor(modelItem => item.Datum)
+            @Html.DisplayFor(modelItem => item.Datum) 
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.VrijemePocetka)
+            @Html.DisplayFor(modelItem => item.VrijemePocetka) h
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.VrijemeZavrsetka)
+            @Html.DisplayFor(modelItem => item.Usluga.Ime)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PregledID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PregledID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PregledID })
+            @Html.DisplayFor(modelItem => item.Korisnik.Ime) @Html.DisplayFor(modelItem => item.Korisnik.Prezime)
         </td>
+        <td>
+            @{if (item.Status == 1)
+            {
+                @("Odobren")
+            }
+            if(item.Status==0)
+            {
+                @("Ceka se na odobrenje")
+            }
+            if (item.Status == 2)
+            {
+                @("Neodobren")
+            }
+            if (item.Status == 3)
+            {
+                @("Obavljen pregled")
+            }
+}
+        </td>
+
+        <td>
+            @Html.ActionLink("Detalji", "Details", new { id=item.PregledID }) 
+        </td>
+    
     </tr>
 }
 

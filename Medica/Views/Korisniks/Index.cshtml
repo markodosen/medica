@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Medica.Models.Korisnik>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Upravljanje korisnicima";
 }
 
-<h2>Index</h2>
+<h2>Upravljanje korisnicima</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Dodaj novog korisnika", "Create")
 </p>
 <table class="table">
     <tr>
@@ -70,9 +70,8 @@
             }
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.KorisnikID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.KorisnikID }) |
-            <!--@Html.ActionLink("Delete", "Delete", new { id=item.KorisnikID }) |-->
+            @Html.ActionLink("Izmjeni", "Edit", new { id=item.KorisnikID }) |
+            @Html.ActionLink("Detalji", "Details", new { id=item.KorisnikID }) |
             @Html.ActionLink("Izmjeni status", "Status", new { id = item.KorisnikID })
         </td>
     </tr>

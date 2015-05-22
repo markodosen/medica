@@ -4,12 +4,11 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Upravljanje zaposlenima</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
-    <br />
-    @Html.ActionLink("Kreiraj novu ulogu", "Index", "Ulogas")
+    @Html.ActionLink("Dodaj novog zaposlenog", "Create")
+    
 </p>
 <table class="table">
     <tr>
@@ -55,7 +54,16 @@
             @Html.DisplayFor(modelItem => item.Sifra)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Status)
+            @{if (item.Status == 1)
+            {
+                @("Aktivan")
+            }
+            else
+            {
+                @("Neaktivan")
+            }
+
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Uloga.Ime)
@@ -64,9 +72,9 @@
             @Html.DisplayFor(modelItem => item.Opis)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ZaposleniID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ZaposleniID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ZaposleniID })
+            @Html.ActionLink("Izmijeni", "Edit", new { id=item.ZaposleniID }) |
+            @Html.ActionLink("Detalji", "Details", new { id=item.ZaposleniID }) |
+            @Html.ActionLink("Izmjeni status", "Status", new { id = item.ZaposleniID })
         </td>
     </tr>
 }
