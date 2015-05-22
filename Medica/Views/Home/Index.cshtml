@@ -1,30 +1,122 @@
 ﻿@using Medica.Models;
+@model IEnumerable<Medica.Models.Zaposleni>
 @{
     ViewBag.Title = "Home Page";
 }
 
 @{
     String ime = "";
+    String uloga = "";
     if (Session["tip"].ToString().Equals("korisnik"))
     {
-         var user = Session["user"] as Korisnik;
-         ime = user.Ime;
-        
+        var user = Session["user"] as Korisnik;
+        ime = user.Ime;
+
     }
     if (Session["tip"].ToString().Equals("zaposleni"))
     {
         var user = Session["user"] as Zaposleni;
         ime = user.Ime;
+        uloga = user.Uloga.Ime;
     }
-    if(Session["tip"] == null)
+    if (Session["tip"] == null)
     {
         ime = "Ne znam!";
     }
-   
+    }
 
-}
-<h3>Welcome @ime</h3>
-
-@Html.ActionLink("Usluge", "Index", "Uslugas")
 <br />
-@Html.ActionLink("Upravljanje zaposlenima", "Index", "Zaposlenis")
+<br />
+
+ 
+
+<h2>Nase usluge</h2>
+<p>Sve nase usluge mozete zakazati ovdje: @Html.ActionLink("Usluge", "Index", "Uslugas")</p>
+
+<h2>Nasi doktori</h2>
+
+<p>Nasi doktori stoje vam na raspolaganju svakog dana </p>
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Ime)
+        </th>
+        <th>
+
+            @Html.DisplayNameFor(model => model.Prezime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mail)
+        </th>
+        @if (uloga.Equals("administrator"))
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.Sifra)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+        }
+        <th>
+            @Html.Label("Uloga")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Opis)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @if (uloga.Equals("administrator") || item.Uloga.Ime.Equals("Doktor"))
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prezime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mail)
+                </td>
+                if (uloga.Equals("administrator"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sifra)
+                    </td>
+                    <td>
+                        @{if (item.Status == 1)
+                        {
+                            @("Aktivan")
+                        }
+                        else
+                        {
+                            @("Neaktivan")
+                        }
+
+                        }
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.Uloga.Ime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Opis)
+                </td>
+                if (uloga.Equals("administrator"))
+                {
+                    <td>
+                        @Html.ActionLink("Izmijeni", "Edit", new { id = item.ZaposleniID }) |
+                        @Html.ActionLink("Detalji", "Details", new { id = item.ZaposleniID }) |
+                        @Html.ActionLink("Izmjeni status", "Status", new { id = item.ZaposleniID })
+                    </td>
+                }
+            }
+        </tr>
+    }
+
+    
+
+</table>

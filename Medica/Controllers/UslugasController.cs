@@ -21,6 +21,7 @@ namespace Medica.Controllers
             {
                 return RedirectToAction("Login", "Login");
             }
+            
             var uslugas = db.Uslugas.Include(u => u.Zaposleni);
             return View(uslugas.ToList());
         }

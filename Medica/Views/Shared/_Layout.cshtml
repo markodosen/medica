@@ -37,9 +37,10 @@
     <title>Medica - @ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    
 </head>
 <body>
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -54,22 +55,27 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
                     <li>@Html.ActionLink("O nama", "About", "Home")</li>
-                    <li>@Html.ActionLink("Pomoc", "", "")</li>
-                   @if (uloga.Equals("administrator")) { 
-                    <li class="dropdown">
-                        <a class="nav navbar-nav" data-toggle="dropdown" href="#">Administratorski alati<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Upravljanje zaposlenima", "Index", "Zaposlenis")</li>
-                            <li>@Html.ActionLink("Upravljanje ulogama", "Index", "Ulogas")</li>
-                            <li>@Html.ActionLink("Upravljanje korisnicima", "Index", "Korisniks")</li>
-                            <li>@Html.ActionLink("Upravljanje uslugama", "Index", "Uslugas")</li>
-                            <li>@Html.ActionLink("Upravljanje pregledima", "Index", "Pregleds")</li>
-                        </ul>
-                    </li>
-                   }
+                    <li>@Html.ActionLink("Pomoc", "Help", "Home")</li>
+                    <li>@Html.ActionLink("Usluge", "Index", "Uslugas")</li>
+                        @if (uloga.Equals("Medicinska sestra")) { 
+                    <li>@Html.ActionLink("Pregledi", "Index", "Pregleds")</li>
+                        }
+                    @if (uloga.Equals("administrator"))
+                    {
+                        <li class="dropdown">
+                            <a class="nav navbar-nav" data-toggle="dropdown" href="#">Administratorski alati<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Upravljanje zaposlenima", "Index", "Zaposlenis")</li>
+                                <li>@Html.ActionLink("Upravljanje ulogama", "Index", "Ulogas")</li>
+                                <li>@Html.ActionLink("Upravljanje korisnicima", "Index", "Korisniks")</li>
+                                <li>@Html.ActionLink("Upravljanje uslugama", "Index", "Uslugas")</li>
+                                <li>@Html.ActionLink("Upravljanje pregledima", "Index", "Pregleds")</li>
+                            </ul>
+                        </li>
+                    }
                 </ul>
                 <div style="float:right">
-                    <ul class="nav navbar-nav">      
+                    <ul class="nav navbar-nav">
                         <li class="dropdown">
                             <a class="nav navbar-nav" data-toggle="dropdown" href="#">@ime<span class="caret"></span></a>
                             <ul class="dropdown-menu">
@@ -77,24 +83,25 @@
                                 <li>@Html.ActionLink("Izloguj se", "Logout", "Login")</li>
                             </ul>
                         </li>
-                        
+
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
 
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Marko Dosen 25/11</p>
-        </footer>
-    </div>
+        <div class="container body-content">
+            @RenderBody()
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Marko Dosen 25/11</p>
+            </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
 </body>
 </html>
 

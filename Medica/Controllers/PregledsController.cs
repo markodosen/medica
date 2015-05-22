@@ -21,6 +21,7 @@ namespace Medica.Controllers
             {
                 return RedirectToAction("Login", "Login");
             }
+            
             return View(db.Pregleds.ToList());
         }
 

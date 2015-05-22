@@ -11,6 +11,7 @@
         {
             var user = Session["user"] as Korisnik;
             ime = user.Ime;
+            uloga = "korisnik";
         }
         else
         {
@@ -33,11 +34,12 @@ else
     <h2>Nase usluge</h2>
 }
 </p>
+
 <table class="table">
     <tr>
         
         <th>
-            @Html.DisplayNameFor(model => model.Ime)  @uloga
+            @Html.DisplayNameFor(model => model.Ime)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Cijena)
@@ -105,7 +107,7 @@ else
             @Html.ActionLink("Izmjeni | ", "Edit", new { id=item.UslugaID }) 
             @Html.ActionLink("Izmjeni status", "Status", new { id = item.UslugaID })
         }
-        else { 
+        @if(uloga.Equals("korisnik")){
             
             @Html.ActionLink("Zakazi", "Zakazi", new { id = item.UslugaID }, new { @class = "btn btn-sm btn-success" })
         }
